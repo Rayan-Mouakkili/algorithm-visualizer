@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# Algorithm Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application web interactive pour visualiser des algorithmes et structures de données étape par étape.
 
-Currently, two official plugins are available:
+## Objectif
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Le projet sert à apprendre l'algorithmique en construisant progressivement une application web propre, testable et maintenable.
 
-## React Compiler
+Le MVP démarre avec Bubble Sort.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## MVP prévu
 
-## Expanding the ESLint configuration
+Le MVP devra permettre :
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- d'afficher un tableau de nombres ;
+- de visualiser Bubble Sort étape par étape ;
+- d'utiliser les contrôles Play, Pause, Next, Previous et Reset ;
+- d'afficher l'étape courante ;
+- d'afficher des états visuels simples : normal, compare, swap, sorted ;
+- d'afficher des statistiques simples : étape courante, total d'étapes, comparaisons, échanges ;
+- de tester l'algorithme et le moteur de visualisation.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React
+- Vite
+- TypeScript strict
+- CSS Modules
+- Vitest
+- ESLint
+- Prettier
+- npm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## Contraintes du MVP
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Le MVP n'utilise pas :
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+- Redux ;
+- Tailwind ;
+- D3 ;
+- Next.js ;
+- backend ;
+- base de données ;
+- UI library.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## Architecture
+
+Principe général :
+
+algorithmes purs
+-> étapes de visualisation
+-> moteur de visualisation
+-> état courant
+-> interface utilisateur
+
+Règles principales :
+
+- les algorithmes ne dépendent pas de React ;
+- les algorithmes ne manipulent pas le DOM ;
+- les algorithmes produisent des étapes de visualisation ;
+- le moteur consomme une timeline d'étapes ;
+- l'interface affiche uniquement l'état courant ;
+- les tests ciblent d'abord la logique pure.
+
+Voir aussi : docs/ARCHITECTURE.md
+
+## Scripts
+
+Développement :
+
+npm run dev
+
+Build :
+
+npm run build
+
+Lint :
+
+npm run lint
+
+Formatage :
+
+npm run format
+npm run format:check
+
+Tests :
+
+npm run test
+npm run test:watch
+npm run coverage
+
+## État actuel
+
+Initialisation du dépôt et de l'outillage.
+
+Déjà configuré :
+
+- projet Vite React TypeScript ;
+- structure minimale src/app, src/algorithms, src/visualization, src/types ;
+- ESLint ;
+- Prettier ;
+- Vitest.
+
+Pas encore implémenté :
+
+- Bubble Sort ;
+- moteur de visualisation ;
+- interface du MVP ;
+- tests métier.
+
+## Roadmap
+
+1. Initialisation du dépôt et de l'outillage.
+2. Définition des types de visualisation.
+3. Implémentation de Bubble Sort pur.
+4. Implémentation du moteur de timeline.
+5. Interface MVP avec contrôles.
+6. Tests unitaires algorithme et moteur.
+7. Documentation complémentaire.
+8. Publication GitHub.
