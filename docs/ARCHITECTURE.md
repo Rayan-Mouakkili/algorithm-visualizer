@@ -22,13 +22,13 @@ algorithmes purs
 ## Structure initiale
 
 src/
-  app/
-  algorithms/
-  visualization/
-  types/
+app/
+algorithms/
+visualization/
+types/
 
 docs/
-  ARCHITECTURE.md
+ARCHITECTURE.md
 
 ## MVP initial
 
