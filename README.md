@@ -6,14 +6,15 @@ Application web interactive pour visualiser des algorithmes et structures de don
 
 Algorithm Visualizer sert à apprendre l'algorithmique en construisant progressivement une application web propre, testable, maintenable et publiable.
 
-Le MVP actuel se concentre sur la visualisation de Bubble Sort.
+L'application permet actuellement de visualiser plusieurs algorithmes de tri avec la même architecture de visualisation.
 
-## Fonctionnalités du MVP
+## Fonctionnalités actuelles
 
-Le MVP permet actuellement :
+L'application permet actuellement :
 
 - d'afficher un tableau de nombres ;
-- de visualiser Bubble Sort étape par étape ;
+- de choisir entre Bubble Sort et Selection Sort ;
+- de visualiser l'algorithme sélectionné étape par étape ;
 - d'utiliser les contrôles Previous, Next, Reset, Play et Pause ;
 - d'afficher l'étape courante ;
 - d'afficher les états visuels suivants :
@@ -26,7 +27,7 @@ Le MVP permet actuellement :
   - total d'étapes ;
   - comparaisons ;
   - échanges ;
-- de tester l'algorithme Bubble Sort ;
+- de tester les algorithmes purs ;
 - de tester le moteur pur de visualisation.
 
 ## Stack
@@ -40,10 +41,11 @@ Le MVP permet actuellement :
 - ESLint
 - Prettier
 - npm
+- GitHub Actions
 
-## Contraintes du MVP
+## Contraintes du projet
 
-Le MVP n'utilise pas :
+Le projet n'utilise pas :
 
 - Redux ;
 - Tailwind ;
@@ -87,6 +89,8 @@ src/
   algorithms/
     bubbleSort.ts
     bubbleSort.test.ts
+    selectionSort.ts
+    selectionSort.test.ts
   types/
     visualization.ts
   visualization/
@@ -162,25 +166,31 @@ npm run build
 
 - formatage OK ;
 - lint OK ;
-- 17 tests passent ;
+- 28 tests passent ;
 - build OK.
 
 ## État actuel
 
-Le MVP Bubble Sort est fonctionnel.
+L'application visualise actuellement deux algorithmes de tri :
+
+- Bubble Sort ;
+- Selection Sort.
 
 Déjà implémenté :
 
 - types centraux de visualisation ;
 - moteur pur de navigation dans une timeline ;
 - génération pure de la timeline Bubble Sort ;
-- interface React du MVP ;
+- génération pure de la timeline Selection Sort ;
+- interface React avec sélecteur d'algorithme ;
 - contrôles Previous, Next, Reset, Play et Pause ;
 - affichage des états visuels ;
 - affichage des statistiques ;
 - tests unitaires du moteur ;
 - tests unitaires de Bubble Sort ;
-- documentation d'architecture.
+- tests unitaires de Selection Sort ;
+- documentation d'architecture ;
+- GitHub Actions pour vérifier formatage, lint, tests et build.
 
 ## Roadmap
 
@@ -193,13 +203,16 @@ Déjà implémenté :
 5. Interface MVP avec contrôles.
 6. Tests unitaires algorithme et moteur.
 7. Documentation initiale.
+8. Publication du dépôt sur GitHub.
+9. Ajout de GitHub Actions.
+10. Ajout de Selection Sort.
+11. Ajout d'un sélecteur d'algorithme dans l'interface.
 
 Prochaines étapes possibles :
 
-1. Publier le MVP sur GitHub.
-2. Ajouter une GitHub Action pour vérifier formatage, lint, tests et build.
-3. Améliorer la saisie du tableau d'entrée.
-4. Ajouter Selection Sort avec la même architecture.
-5. Extraire des composants React réutilisables.
-6. Ajouter quelques tests UI avec React Testing Library.
-7. Ajouter Playwright plus tard pour des scénarios end-to-end simples.
+1. Améliorer la saisie du tableau d'entrée.
+2. Extraire des composants React réutilisables.
+3. Ajouter quelques tests UI avec React Testing Library.
+4. Ajouter un autre algorithme de tri simple, par exemple Insertion Sort.
+5. Ajouter Playwright plus tard pour des scénarios end-to-end simples.
+6. Préparer un déploiement statique.

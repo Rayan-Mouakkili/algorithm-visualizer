@@ -34,6 +34,8 @@ src/
   algorithms/
     bubbleSort.ts
     bubbleSort.test.ts
+    selectionSort.ts
+    selectionSort.test.ts
   types/
     visualization.ts
   visualization/
@@ -75,19 +77,23 @@ Ces états sont indépendants de React. React les utilise seulement pour choisir
 
 Les algorithmes sont placés dans `src/algorithms/`.
 
-Le MVP contient actuellement `bubbleSort.ts`.
+Le projet contient actuellement deux algorithmes de tri visualisables :
 
-Son rôle est de générer une `VisualizationTimeline` à partir d'un tableau de nombres.
+- `bubbleSort.ts` ;
+- `selectionSort.ts`.
 
-L'algorithme :
+Le rôle de chaque algorithme est de générer une `VisualizationTimeline` à partir d'un tableau de nombres.
+
+Chaque algorithme :
 
 - ne dépend pas de React ;
 - ne manipule pas le DOM ;
 - ne lance pas d'animation ;
 - ne connaît pas les boutons de l'interface ;
-- produit uniquement des étapes de visualisation.
+- produit uniquement des étapes de visualisation ;
+- ne modifie pas le tableau reçu en entrée.
 
-Cette séparation permet de tester Bubble Sort comme une fonction pure.
+Cette séparation permet de tester les algorithmes comme des fonctions pures.
 
 ## Moteur de visualisation
 
@@ -100,14 +106,14 @@ Son rôle est uniquement de naviguer dans une timeline d'étapes déjà produite
 Flux actuel :
 
 ```txt
-bubbleSort
+sorting algorithm
 -> VisualizationTimeline
 -> visualizationEngine
 -> currentStep
 -> App.tsx
 ```
 
-Le moteur ne trie pas les données, ne manipule pas le DOM et ne connaît pas Bubble Sort.
+Le moteur ne trie pas les données, ne manipule pas le DOM et ne connaît pas l'algorithme utilisé.
 
 Il expose des fonctions pures :
 
@@ -132,11 +138,12 @@ Cas limite pris en charge :
 
 ## Interface utilisateur
 
-L'interface du MVP est dans `src/app/App.tsx`.
+L'interface principale est dans `src/app/App.tsx`.
 
 Son rôle est d'orchestrer l'affichage :
 
-- créer la timeline Bubble Sort ;
+- choisir l'algorithme actif ;
+- créer la timeline correspondant à l'algorithme choisi ;
 - créer l'état du moteur ;
 - afficher l'étape courante ;
 - afficher les barres du tableau ;
@@ -144,13 +151,15 @@ Son rôle est d'orchestrer l'affichage :
 - afficher les statistiques ;
 - gérer les contrôles Previous, Next, Reset, Play et Pause.
 
+Le choix entre Bubble Sort et Selection Sort se fait dans l'interface, mais l'interface ne connaît pas les détails internes des algorithmes.
+
 Le mode Play/Pause est volontairement géré côté React.
 
 Le moteur ne contient pas de notion de temps, d'intervalle ou d'animation automatique. Il reste donc pur et testable.
 
 ## Styles
 
-Les styles du MVP sont dans `src/app/App.module.css`.
+Les styles sont dans `src/app/App.module.css`.
 
 Les classes CSS traduisent les états visuels produits par la timeline :
 
@@ -168,7 +177,8 @@ Les tests actuels ciblent d'abord les fonctions pures.
 Tests existants :
 
 - `src/visualization/visualizationEngine.test.ts` ;
-- `src/algorithms/bubbleSort.test.ts`.
+- `src/algorithms/bubbleSort.test.ts` ;
+- `src/algorithms/selectionSort.test.ts`.
 
 La logique testée inclut notamment :
 
@@ -179,9 +189,11 @@ La logique testée inclut notamment :
 - les limites de navigation ;
 - le comportement avec une timeline vide ;
 - la génération des étapes Bubble Sort ;
+- la génération des étapes Selection Sort ;
 - les comparaisons ;
 - les échanges ;
-- l'état final trié.
+- l'état final trié ;
+- les cas limites des algorithmes.
 
 Les tests UI avec React Testing Library pourront être ajoutés plus tard, quand l'interface sera plus stable.
 
@@ -189,7 +201,7 @@ Les tests end-to-end avec Playwright viendront également plus tard.
 
 ## Extension future
 
-Pour ajouter un nouvel algorithme, par exemple Selection Sort, il faudra respecter le même contrat :
+Pour ajouter un nouvel algorithme, il faut respecter le même contrat :
 
 ```txt
 nouvel algorithme pur
@@ -205,7 +217,7 @@ Une extension correcte consiste à :
 1. créer une fonction pure dans `src/algorithms/` ;
 2. générer une `VisualizationTimeline` compatible ;
 3. ajouter les tests unitaires de l'algorithme ;
-4. connecter la timeline à l'interface ;
+4. ajouter l'algorithme à la configuration utilisée par l'interface ;
 5. éviter toute dépendance entre l'algorithme et React.
 
 Cette architecture permet d'ajouter progressivement d'autres algorithmes sans réécrire le moteur de visualisation.
